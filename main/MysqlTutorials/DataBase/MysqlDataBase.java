@@ -2,7 +2,7 @@ package DataBaseWithJava.main.MysqlTutorials.DataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
-import MysqlTutorials.DataBase.Student;
+
 
 public class MysqlDataBase {
     private static Connection connection;
