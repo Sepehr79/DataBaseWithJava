@@ -1,4 +1,4 @@
-package DataBaseWithJava.main.MysqlTutorials.DataBase;
+package src.DataBaseWithJava.main.MysqlTutorials.DataBase;
 
 public class Student {
     private String name;

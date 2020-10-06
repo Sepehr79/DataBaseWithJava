@@ -1,8 +1,6 @@
-package DataBaseWithJava.main.MysqlTutorials;
+package src.DataBaseWithJava.main.MysqlTutorials;
 
-
-import DataBaseWithJava.main.MysqlTutorials.DataBase.MysqlDataBase;
-
+import src.DataBaseWithJava.main.MysqlTutorials.DataBase.MysqlDataBase;
 
 
 public class MainClass {

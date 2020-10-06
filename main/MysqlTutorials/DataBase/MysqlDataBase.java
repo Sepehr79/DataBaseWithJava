@@ -1,26 +1,26 @@
-package DataBaseWithJava.main.MysqlTutorials.DataBase;
+package src.DataBaseWithJava.main.MysqlTutorials.DataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 
-public class MysqlDataBase {
+public class MysqlDataBase implements IDataBase {
+
     private static Connection connection;
     private static Statement statement;
-
-    public static final int NAME = 0;
-    public static final int LASTNAME = 1;
-    public static final int AGE = 2;
-    public static final int ID = 3;
 
     private MysqlDataBase(){ }
 
     private static void openConnection(){
         try {
+            Class.forName("com.mysql.jdbc.Driver"); // load jdbc driver
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBC", "root", "msprm9731");
+            connection.setAutoCommit(false);
             statement = connection.createStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -48,6 +48,7 @@ public class MysqlDataBase {
 
         try {
             statement.executeUpdate(String.format("update students set name = '%s' where id = %d", name, id));
+            connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -60,6 +61,7 @@ public class MysqlDataBase {
 
         try {
             statement.executeUpdate(String.format("update students set lastName = '%s' where id = %d", lastName, id));
+            connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -72,6 +74,7 @@ public class MysqlDataBase {
 
         try {
             statement.executeUpdate(String.format("update students set age = %d where id = %d", age, id));
+            connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -139,6 +142,7 @@ public class MysqlDataBase {
             try {
                 statement.executeUpdate(String.format("INSERT into students (name, lastName, age, id)values ('%s', '%s', %d, %d)",
                         student.getName(), student.getLastName(), student.getAge(), student.getId()));
+                connection.commit();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -153,6 +157,7 @@ public class MysqlDataBase {
 
         try {
             statement.executeUpdate(String.format("delete from students where id = %d", id));
+            connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -165,6 +170,7 @@ public class MysqlDataBase {
 
         try {
             statement.executeUpdate("delete from students");
+            connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
