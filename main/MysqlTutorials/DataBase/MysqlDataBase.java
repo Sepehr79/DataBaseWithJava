@@ -8,6 +8,7 @@ public class MysqlDataBase implements IDataBase {
 
     private static Connection connection;
     private static Statement statement;
+    private static PreparedStatement preparedStatement;
 
     private MysqlDataBase(){ }
 
@@ -47,7 +48,12 @@ public class MysqlDataBase implements IDataBase {
         openConnection();
 
         try {
-            statement.executeUpdate(String.format("update students set name = '%s' where id = %d", name, id));
+            // prepared statement for more secure...
+            preparedStatement = connection.prepareStatement("update students set name = ? where id = ?");
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+            //statement.executeUpdate(String.format("update students set name = '%s' where id = %d", name, id));
             connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
